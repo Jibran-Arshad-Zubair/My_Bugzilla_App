@@ -1,0 +1,15 @@
+<% if current_user.developer? && @bug.project.users.include?(current_user) %>
+  <%= button_to 'Assign to Myself', assign_to_myself_bug_path(@bug), method: :post %>
+  <%= button_to 'Pick Up', pick_up_bug_path(@bug), method: :post %>
+
+<% end %>
+
+<% if current_user.developer? && @bug.developer == current_user %>
+  <%= button_to 'Mark Resolved', mark_resolved_bug_path(@bug), method: :post %>
+<% end %>
+
+<% if current_user.manager? || (current_user.developer? && @bug.developer == current_user) %>
+  <%= button_to 'Delete', bug_path(@bug), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% else %>
+  <p>You do not have permission to delete this bug.</p>
+<% end %>

@@ -1,0 +1,30 @@
+
+<h1>Report a New Bug</h1>
+
+<%= form_for @bug, url: create_bug_qa_path, method: :post do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :deadline %>
+    <%= f.date_select :deadline %>
+  </div>
+  <div class="field">
+    <%= f.label :bug_type %>
+    <%= f.select :bug_type, Bug.bug_types.keys %>
+  </div>
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.select :status, Bug.statuses.keys %>
+  <%# </div> %>
+  <%# <div class="field">
+    <%= f.label :screenshot %>
+    <%# <%= f.file_field :screenshot %>
+  <%# </div>  %>
+  <div class="field">
+    <%= f.label :project_id %>
+    <%= f.collection_select :project_id, Project.all, :id, :name %>
+  </div>
+  <%= f.submit 'Submit Bug' %>
+<% end %>

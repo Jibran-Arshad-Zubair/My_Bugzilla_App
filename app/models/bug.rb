@@ -1,0 +1,46 @@
+class Bug < ApplicationRecord
+  validates :title, uniqueness: { scope: :project_id, message: "Title should be unique within the project" }
+  validates :status, presence: true, inclusion: { in: ['new', 'started', 'completed', 'resolved'] }
+  validates :bug_type, presence: true, inclusion: { in: ['feature', 'bug'] }
+  validates :project_id, presence: true
+  validates :creator_id, presence: true
+
+  enum bug_type: {
+    feature: 'feature',
+    bug: 'bug'
+  }
+  STATUS_OPTIONS = ['new', 'started', 'completed']
+
+  def self.status_options
+    STATUS_OPTIONS
+  end
+  validates :description, presence: false # Description is not compulsory
+
+  validates :deadline, presence: true
+  # validates :screenshot, presence: false # Screenshot is not compulsory
+  # validate :validate_screenshot_format
+
+  has_one_attached :screenshot
+
+  private
+
+ ` # def validate_screenshot_format
+  #   return unless screenshot.attached?
+
+  #   unless screenshot.content_type.in?(%w(image/png image/gif))
+  #     errors.add(:screenshot, 'must be a PNG or GIF image')
+  #   end
+  # end`
+
+  def validate_status_based_on_type
+    valid_statuses = if type == 'feature'
+                       ['new', 'started', 'completed']
+                     else
+                       ['new', 'started', 'resolved']
+                     end
+
+    unless valid_statuses.include?(status)
+      errors.add(:status, "is not valid for the selected type '#{type}'")
+    end
+  end
+end
