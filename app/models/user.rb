@@ -6,7 +6,10 @@ class User < ApplicationRecord
 
   enum user_type: { developer: 'developer', manager: 'manager', qa: 'qa' }
 
-  has_many :managed_projects, class_name: 'Project', foreign_key: 'manager_id'
+
+
+  has_many :managed_projects, through: :manager, class_name: 'Project'
+
   has_many :created_bugs, class_name: 'Bug', foreign_key: 'creator_id'
   has_many :assigned_bugs, class_name: 'Bug', foreign_key: 'developer_id'
 
@@ -15,4 +18,15 @@ class User < ApplicationRecord
   validates :password, presence: true
   validates :user_type, presence: true, inclusion: { in: ['developer', 'manager', 'qa'] }
 
+  def developer?
+    user_type == 'developer'
+  end
+  def manager?
+    user_type == 'manager'
+  end
+  def qa?
+    user_type == 'qa'
+  end
 end
+
+

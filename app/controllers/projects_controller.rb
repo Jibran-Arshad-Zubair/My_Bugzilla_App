@@ -10,17 +10,19 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
+    @project = Project.new if current_user.manager?
   end
 
   def create
-  @project = Project.new(project_params)
-  if @project.save
-    redirect_to projects_path, notice: 'Project was successfully created.'
-  else
-    render :new
+    @project = Project.new(project_params) if current_user.manager?
+    
+    if @project.save
+      redirect_to projects_path, notice: 'Project was successfully created.'
+    else
+      render :new
+    end
   end
-end
+
 
   def edit
     @project = Project.find(params[:id])
@@ -35,11 +37,15 @@ end
     end
   end
 
-  # ... other actions ...
-
+  def delete
+    @project = Project.find(params[:id])
+    @project.destroy
+    redirect_to projects_path, notice: 'Project was successfully deleted.'
+  end
+  
   private
 
   def project_params
-    params.require(:project).permit(:name, :description) # Adjust as needed
+    params.require(:project).permit(:name, :description)
   end
 end

@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   end
   resources :projects 
 
+  resources :projects do
+    delete 'delete', on: :member
+  end
+  
+
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',

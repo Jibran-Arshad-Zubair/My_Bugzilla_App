@@ -6,8 +6,8 @@ class CreateBugs < ActiveRecord::Migration[6.1]
       t.binary :screenshot
       t.string :type
       t.string :status
-      t.references :creator, null: false, foreign_key: true
-      t.references :developer, null: false, foreign_key: true
+      # t.references :creator, null: false, foreign_key: true
+      # t.references :developer, null: false, foreign_key: true
       t.references :project, null: false, foreign_key: true
 
       t.timestamps

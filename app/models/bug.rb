@@ -14,11 +14,11 @@ class Bug < ApplicationRecord
   def self.status_options
     STATUS_OPTIONS
   end
-  validates :description, presence: false # Description is not compulsory
+  validates :description, presence: false 
 
   validates :deadline, presence: true
-  # validates :screenshot, presence: false # Screenshot is not compulsory
-  # validate :validate_screenshot_format
+  
+  
 
   has_one_attached :screenshot
 

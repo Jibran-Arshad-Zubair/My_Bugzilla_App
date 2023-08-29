@@ -4,9 +4,13 @@
 
 # db/seeds.rb
 
-# Create user roles 
+# Create user roles p
 
-
+user_types = user_types.create([
+  { name: 'manager' },
+  { name: 'developer' },
+  { name: 'qa' }
+])
   
   # Create users
   manager = User.create(username: 'John Manager', email: 'john@example.com', password: 'password', user_type: 'manager')
@@ -15,8 +19,8 @@
   qa1 = User.create(username: 'Eve QA', email: 'eve@example.com', password: 'password', user_type: 'qa')
   
 # Create projects
-project1 = Project.create(name: 'Bug Tracking App', manager_id: manager.id)
-project2 = Project.create(name: 'Feature Development', manager_id: manager.id)
+project1 = Project.create(name: 'Bug Tracking App')
+project2 = Project.create(name: 'Feature Development')
 
 # Add developers and QAs to projects
 project1.users << developer1

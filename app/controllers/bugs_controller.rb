@@ -10,7 +10,7 @@ class BugsController < ApplicationController
     end
   def create
   @bug = Bug.new(bug_params_create)
-  if @bug.save
+  if @bug=projects.bug.create
     redirect_to bugs_path, notice: 'Bug was successfully created.'
   else
     render :new
@@ -57,17 +57,17 @@ end
     private
   
     def bug_params
-      params.require(:bug).permit(:title, :deadline, :screenshot, :type, :status, :creator_id, :developer_id, :project_id)
+      params.require(:bug).permit(:title, :deadline,:type, :status, :creator_id, :developer_id, :project_id)
     end
 
     def authorize_delete_bug
-      return if current_user.manager? # Allow managers to delete bugs
+      return if current_user.manager? 
       @bug = Bug.find(params[:id])
-      return if @bug.developer == current_user # Allow developers to delete bugs they are assigned to
+      return if @bug.developer == current_user 
       redirect_to @bug, alert: 'You are not authorized to delete this bug.'
     end
 
-    # app/controllers/bugs_controller.rb
+    
 def bug_params_create
   params.require(:bug).permit(:title, :deadline, :bug_type, :status)
 end

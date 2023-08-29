@@ -27,7 +27,7 @@ class QaController < ApplicationController
     private
   
     def bug_params
-      params.require(:bug).permit(:title, :deadline, :bug_type, :status, :screenshot, :project_id)
+      params.require(:bug).permit(:title, :deadline, :bug_type, :status, :project_id)
     end
   
     def check_qa_role

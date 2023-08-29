@@ -12,39 +12,37 @@
 
 ActiveRecord::Schema.define(version: 2023_08_29_084744) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "bugs", force: :cascade do |t|
     t.string "title"
     t.date "deadline"
     t.binary "screenshot"
     t.string "type"
     t.string "status"
-    t.integer "creator_id", null: false
-    t.integer "developer_id", null: false
-    t.integer "project_id", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["creator_id"], name: "index_bugs_on_creator_id"
-    t.index ["developer_id"], name: "index_bugs_on_developer_id"
     t.index ["project_id"], name: "index_bugs_on_project_id"
   end
 
   create_table "managers", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.integer "manager_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
-    t.index ["manager_id"], name: "index_projects_on_manager_id"
   end
 
   create_table "projects_users", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_projects_users_on_project_id"
@@ -63,10 +61,7 @@ ActiveRecord::Schema.define(version: 2023_08_29_084744) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "bugs", "creators"
-  add_foreign_key "bugs", "developers"
   add_foreign_key "bugs", "projects"
-  add_foreign_key "projects", "managers"
   add_foreign_key "projects_users", "projects"
   add_foreign_key "projects_users", "users"
 end
