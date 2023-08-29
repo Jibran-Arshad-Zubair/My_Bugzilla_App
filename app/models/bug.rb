@@ -4,6 +4,8 @@ class Bug < ApplicationRecord
   validates :bug_type, presence: true, inclusion: { in: ['feature', 'bug'] }
   validates :project_id, presence: true
   validates :creator_id, presence: true
+  validates :description, presence: false 
+  validates :deadline, presence: true
 
   enum bug_type: {
     feature: 'feature',
@@ -14,25 +16,10 @@ class Bug < ApplicationRecord
   def self.status_options
     STATUS_OPTIONS
   end
-  validates :description, presence: false 
-
-  validates :deadline, presence: true
   
-  
-
-  has_one_attached :screenshot
-
   private
 
- ` # def validate_screenshot_format
-  #   return unless screenshot.attached?
-
-  #   unless screenshot.content_type.in?(%w(image/png image/gif))
-  #     errors.add(:screenshot, 'must be a PNG or GIF image')
-  #   end
-  # end`
-
-  def validate_status_based_on_type
+def validate_status_based_on_type
     valid_statuses = if type == 'feature'
                        ['new', 'started', 'completed']
                      else

@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user! 
-
   def index
     @projects = Project.all
   end
@@ -17,12 +16,11 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params) if current_user.manager?
     
     if @project.save
-      redirect_to projects_path, notice: 'Project was successfully created.'
+      redirect_to projects_path, notice: t('flash.project.created')
     else
       render :new
     end
   end
-
 
   def edit
     @project = Project.find(params[:id])
@@ -30,17 +28,18 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
+    
     if @project.update(project_params)
-      redirect_to projects_path, notice: 'Project was successfully updated.'
+      redirect_to projects_path, notice: t('flash.project.updated')
     else
       render :edit
     end
   end
 
-  def delete
+  def destroy
     @project = Project.find(params[:id])
     @project.destroy
-    redirect_to projects_path, notice: 'Project was successfully deleted.'
+    redirect_to projects_path, notice: t('flash.project.deleted')
   end
   
   private

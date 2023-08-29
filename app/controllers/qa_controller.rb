@@ -1,4 +1,3 @@
-# app/controllers/qa_controller.rb
 class QaController < ApplicationController
     before_action :authenticate_user!
     before_action :check_qa_role
