@@ -17,11 +17,7 @@
   <div class="field">
     <%= f.label :status %>
     <%= f.select :status, Bug.statuses.keys %>
-  <%# </div> %>
-  <%# <div class="field">
-    <%= f.label :screenshot %>
-    <%# <%= f.file_field :screenshot %>
-  <%# </div>  %>
+  
   <div class="field">
     <%= f.label :project_id %>
     <%= f.collection_select :project_id, Project.all, :id, :name %>

@@ -41,41 +41,6 @@ class ProjectsController < ApplicationController
     @projects.destroy
     redirect_to projects_path, notice: t('flash.project.deleted')
   end
-
-
-  def add_developer
-    @project = Project.find(params[:id])
-    developer = User.find(params[:developer_id])
-
-    @project.developers << developer
-
-    redirect_to projects_path, notice: 'Developer was added to the project.'
-  end
-
-  def remove_developer
-    @project = Project.find(params[:id])
-    developer = User.find(params[:developer_id])
-
-    @project.developers.delete(developer)
-
-    redirect_to projects_path, notice: 'Developer was removed from the project.'
-  end
-
-
-  # def add_qa
-  #   @project = Project.find(params[:id])
-  #   @qas = User.where(user_type: 'qa')
-  # end
-
-  # def remove_developer
-  #   @project = Project.find(params[:id])
-  #   @developers = @project.developers
-  # end
-
-  # def remove_qa
-  #   @project = Project.find(params[:id])
-  #   @qas = @project.qas
-  # end
   
   private
 
