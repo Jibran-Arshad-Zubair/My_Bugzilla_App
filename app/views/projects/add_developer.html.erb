@@ -1,0 +1,12 @@
+
+
+<h1>Add Developers to Project</h1>
+
+<%= form_for @project, url: add_developer_project_path(@project), method: :patch do |f| %>
+  <div class="field">
+    <%= f.label :developer_ids, 'Select Developers' %>
+    <%= f.collection_check_boxes :developer_ids, User.developer, :id, :name %>
+  </div>
+  
+  <%= f.submit 'Add Developers', class: 'btn btn-primary' %>
+<% end %>

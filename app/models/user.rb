@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum user_type: { developer: 'developer', manager: 'manager', qa: 'qa' }
+         enum user_type: { 'manager' => 'manager', 'developer' => 'developer', 'qa' => 'qa' }
+
 
 
 

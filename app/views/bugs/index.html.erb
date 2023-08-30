@@ -4,6 +4,11 @@
   <% @bugs.each do |bug| %>
     <div class="card mb-3">
       <div class="card-body">
+        <tr>
+          <td><%= bug.title %></td>
+          <td><%= bug.deadline %></td>
+          <td><%= bug.project.name %></td>
+        </tr>
         <% if current_user.developer? && bug.project.users.include?(current_user) %>
           <%= button_to 'Assign to Myself', assign_to_myself_bug_path(bug), method: :post, class: "btn btn-primary mr-2" %>
           <%= button_to 'Pick Up', pick_up_bug_path(bug), method: :post, class: "btn btn-success mr-2" %>

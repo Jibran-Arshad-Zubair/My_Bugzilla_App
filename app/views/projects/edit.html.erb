@@ -1,10 +1,26 @@
 <%= form_for @project do |f| %>
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit 'Update Project' %>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-center">Update Project</h2>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control", required: true %>
+            </div>
+            <div class="form-group">
+              <%= f.label :description %>
+              <%= f.text_area :description, class: "form-control", rows: 5 %>
+            </div>
+            <div class="form-group text-center">
+              <%= f.submit 'Update Project', class: "btn btn-primary" %>
+            </div>
+            <%= link_to 'Back to Projects', projects_path, class: "btn btn-secondary btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
+

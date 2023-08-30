@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Buggapp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
- <!-- Add Bootstrap CSS link -->
+<head>
+  <title>Buggapp</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+ 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+ 
+</head>
 
-  <body>
-   <% if user_signed_in? %>
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body>
+<% if user_signed_in? %>
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <%= link_to 'Bug Tracking App', root_path, class: 'navbar-brand' %>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +30,7 @@
           </li>
           <% if user_signed_in? %>
             <li class="nav-item">
-               <%= button_to "logout", destroy_user_session_path, method: :delete, class: 'nav-link' %>
+              <%= button_to "Logout", destroy_user_session_path, method: :delete, class: 'btn btn-link nav-link' %>
             </li>
           <% else %>
             <li class="nav-item">
@@ -44,14 +45,12 @@
     </div>
   </nav>
 <% end %>
-   <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
 
-
-    <%= yield %>
-
+<%= yield %>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>

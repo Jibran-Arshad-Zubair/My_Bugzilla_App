@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :projects 
 
   resources :projects do
-    delete 'delete', on: :member
+   get 'delete', on: :member
   end
   
 
@@ -30,13 +30,14 @@ Rails.application.routes.draw do
       post 'mark_resolved'
     end
   end
+  
 
   resources :projects do
     member do
-      post 'add_developer/:user_id', action: :add_developer, as: :add_developer_to
-      delete 'remove_qa/:user_id', action: :remove_qa, as: :remove_qa_from
       post 'add_developer'
+      delete 'remove_developer/:developer_id', action: :remove_developer, as: :remove_developer
     end
   end
-end
+  
 
+end

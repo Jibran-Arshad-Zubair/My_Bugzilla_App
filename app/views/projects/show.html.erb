@@ -15,19 +15,9 @@
   <% end %>
 </ul>
 
-<h3>Add Developer</h3>
-<%= form_tag add_developer_to_project_path(@project), method: :post do %>
-  <%= select_tag :user_id, options_from_collection_for_select(User.developers, :id, :name) %>
-  <%= submit_tag 'Add Developer' %>
-<% end %>
-
-<h3>Add QA</h3>
-<%= form_tag add_qa_to_project_path(@project), method: :post do %>
-  <%= select_tag :user_id, options_from_collection_for_select(User.qas, :id, :name) %>
-  <%= submit_tag 'Add QA' %>
-<% end %>
 
 <% if current_user.manager? && current_user == @project.manager %>
   <%= link_to 'Edit Project', edit_project_path(@project) %>
   <%= link_to 'Delete Project', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
+
 <% end %>
