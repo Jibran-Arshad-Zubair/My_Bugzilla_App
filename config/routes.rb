@@ -28,8 +28,11 @@ Rails.application.routes.draw do
       post 'assign_to_myself'
       post 'pick_up'
       post 'mark_resolved'
+      get 'new'
+      post 'new'
     end
   end
+  
 
   resources :projects do
     member do

@@ -1,7 +1,8 @@
 <div class="container mt-5 text-center">
   <h2 class="mb-4">List of All Projects</h2>
-  <%= link_to 'Create New Project', new_project_path(@project), class: "btn btn-primary mr-2" %>
-
+  <% if current_user.manager? %>
+    <%= link_to 'Create New Project', new_project_path(@project), class: "btn btn-primary mr-2" %>
+  <% end %><br />
     <% @projects.each do |project| %>
 
     <div class="card mb-4">
@@ -22,7 +23,7 @@
             <%= link_to 'Delete Project', delete_project_path(project), method: :delete, data: { confirm: 'Are you sure you want to delete this project?' }, class: "btn btn-danger" %>
           </div>
         <% end %>
-        
+
         <% if current_user.qa? %>
           <%= link_to 'Add Bug', new_bug_path(@project), class: "btn btn-success" %>
         <% end %>

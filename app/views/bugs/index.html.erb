@@ -1,9 +1,12 @@
 
 <div class="container mt-5">
   <h1 class="text-center mb-4">Bug Index Page</h1>
+   <div class="text-center">
+    </div>
   <% @bugs.each do |bug| %>
     <div class="card mb-3">
       <div class="card-body">
+     
         <tr>
           <td><%= bug.title %></td>
           <td><%= bug.deadline %></td>

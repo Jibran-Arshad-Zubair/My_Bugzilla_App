@@ -25,10 +25,12 @@
           <li class="nav-item">
             <%= link_to 'Projects', projects_path, class: 'nav-link' %>
           </li>
-          <%# <li class="nav-item">
-          <%= link_to 'Bugs', projects_bugs_path, class: 'nav-link' %>
+          <% if current_user.developer? || current_user.qa? %>
+          <li class="nav-item">
+          <%= link_to 'Bugs', bugs_path, class: 'nav-link' %>
+          <% end %>
 
-          <%# </li>  %>
+          </li>
           <% if user_signed_in? %>
             <li class="nav-item">
               <%= button_to "Logout", destroy_user_session_path, method: :delete, class: 'btn btn-link nav-link' %>
