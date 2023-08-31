@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :qa, only: [:index] do
     collection do
@@ -6,12 +8,11 @@ Rails.application.routes.draw do
       get 'show_projects', to: 'qa#show_projects'
     end
   end
-  resources :projects 
+  resources :projects
 
   resources :projects do
-   get 'delete', on: :member
+    get 'delete', on: :member
   end
-  
 
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
@@ -21,8 +22,8 @@ Rails.application.routes.draw do
     unlocks: 'users/unlocks'
   }
 
-  root to: "projects#index"
-  
+  root to: 'projects#index'
+
   resources :bugs do
     member do
       post 'assign_to_myself'

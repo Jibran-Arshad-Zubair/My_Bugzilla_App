@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
   def index
     @projects = Project.all
-   
   end
 
   def show
@@ -15,7 +16,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params) if current_user.manager?
-    
+
     if @project.save
       redirect_to projects_path, notice: t('flash.project.created')
     else
@@ -29,7 +30,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    
+
     if @project.update(project_params)
       redirect_to projects_path, notice: t('flash.project.updated')
     else
@@ -47,8 +48,6 @@ class ProjectsController < ApplicationController
     render 'add_qa'
   end
 
-  
-  
   def delete_developers
     project = Project.find(params[:id])
     developer_ids = params[:developer_ids]
@@ -56,28 +55,23 @@ class ProjectsController < ApplicationController
     if developer_ids.present?
       developers = User.where(id: developer_ids)
       project.users.delete(developers)
-      flash[:notice] = "Selected developers have been removed from the project."
+      flash[:notice] = 'Selected developers have been removed from the project.'
     else
-      flash[:alert] = "No developers were selected."
+      flash[:alert] = 'No developers were selected.'
     end
 
     redirect_to project_path(project)
   end
-
-
-
-
-
 
   def delete
     @projects = Project.find(params[:id])
     @projects.destroy
     redirect_to projects_path, notice: t('flash.project.deleted')
   end
-  
+
   private
 
   def project_params
-    params.require(:project).permit(:name, :description )
+    params.require(:project).permit(:name, :description)
   end
 end
