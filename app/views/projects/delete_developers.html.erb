@@ -1,0 +1,14 @@
+<h1>Delete Developers</h1>
+
+<%= form_tag(delete_developers_project_path(@project), method: :delete) do %>
+  <p>Select developers to remove:</p>
+  <% @project.users.each do |developer| %>
+    <label>
+      <%= check_box_tag "developer_ids[]", developer.id %>
+      <%= developer.username %>
+    </label>
+    <br>
+  <% end %>
+
+  <%= submit_tag "Remove Selected Developers" %>
+<% end %>

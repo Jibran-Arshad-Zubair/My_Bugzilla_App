@@ -47,6 +47,28 @@ class ProjectsController < ApplicationController
     render 'add_qa'
   end
 
+  
+  
+  def delete_developers
+    project = Project.find(params[:id])
+    developer_ids = params[:developer_ids]
+
+    if developer_ids.present?
+      developers = User.where(id: developer_ids)
+      project.users.delete(developers)
+      flash[:notice] = "Selected developers have been removed from the project."
+    else
+      flash[:alert] = "No developers were selected."
+    end
+
+    redirect_to project_path(project)
+  end
+
+
+
+
+
+
   def delete
     @projects = Project.find(params[:id])
     @projects.destroy

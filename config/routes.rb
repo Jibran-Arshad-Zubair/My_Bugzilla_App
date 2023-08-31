@@ -30,7 +30,6 @@ Rails.application.routes.draw do
       post 'mark_resolved'
     end
   end
-  
 
   resources :projects do
     member do
@@ -38,10 +37,9 @@ Rails.application.routes.draw do
       get 'add_developer'
       patch 'add_qa'
       get 'add_qa'
-      get 'remove_developer'
+      get 'delete_developers'
+      delete 'delete_developers'
       get 'remove_qa'
     end
   end
-  
-
 end
