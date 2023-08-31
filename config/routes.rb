@@ -34,8 +34,12 @@ Rails.application.routes.draw do
 
   resources :projects do
     member do
-      post 'add_developer'
-      delete 'remove_developer/:developer_id', action: :remove_developer, as: :remove_developer
+      patch 'add_developer'
+      get 'add_developer'
+      patch 'add_qa'
+      get 'add_qa'
+      get 'remove_developer'
+      get 'remove_qa'
     end
   end
   

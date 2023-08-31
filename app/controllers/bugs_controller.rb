@@ -22,15 +22,12 @@ class BugsController < ApplicationController
     @bug = Bug.find(params[:id])
   end
 
-  def assign_to_myself
-    @bug = Bug.find(params[:id])
-    if current_user.developer? && @bug.project.users.include?(current_user)
-      @bug.update(developer: current_user)
-      redirect_to bugs_path, notice: 'Bug assigned to yourself successfully.'
-    else
-      redirect_to bugs_path, alert: 'Unable to assign bug to yourself.'
-    end
-  end
+def assign_bug
+  @project = Project.find(params[:project_id])
+  @bug = @project.bugs.find(params[:id])
+  @bug.update(developer: current_user)
+  redirect_to project_path(@project), notice: "Bug assigned to you!"
+end
 
   def pick_up
     @bug = Bug.find(params[:id])

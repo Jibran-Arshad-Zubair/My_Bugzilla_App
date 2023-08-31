@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user! 
   def index
     @projects = Project.all
+   
   end
 
   def show
@@ -34,6 +35,16 @@ class ProjectsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def add_developer
+    @project = Project.find(params[:id])
+    render 'add_developer'
+  end
+
+  def add_qa
+    @project = Project.find(params[:id])
+    render 'add_qa'
   end
 
   def delete

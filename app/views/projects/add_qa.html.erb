@@ -1,9 +1,23 @@
-<h1>Add QA to Project: <%= @project.name %></h1>
 
-<%= form_tag add_qa_project_path(@project), method: :post do %>
-  <label>Select a QA:</label>
-  <%= select_tag 'user_id', options_for_select(@users.collect { |user| [user.name, user.id] }) %>
-  <%= submit_tag 'Add QA' %>
-<% end %>
-
-<%= link_to 'Back to Project', project_path(@project) %>
+<div class="container mt-5">
+  <h1 class="text-center">Add QA to Project</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+            <%= form_for @project, url: add_qa_project_path(@project), method: :patch do |f| %>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+            
+            <div class="form-group text-center">
+              <%= f.submit 'Add QA', class: "btn btn-primary btn-block" %>
+            </div>
+          <% end %>
+          <%= link_to 'Back to Projects', projects_path, class: "btn btn-secondary btn-block" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

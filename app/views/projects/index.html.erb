@@ -1,14 +1,17 @@
 <div class="container mt-5 text-center">
   <h2 class="mb-4">List of All Projects</h2>
+    <% @projects.each do |project| %>
     <% if current_user.manager? %>
     <div class="mb-2">
-    <%= link_to 'Create New Project', new_project_path(@project), class: "btn btn-primary mr-2" %>
-    <%= link_to 'Add Dev', new_user_registration_path(@project), class: "btn btn-primary mr-2" %>
-     
+    <%= link_to 'Create New Project', new_project_path(project), class: "btn btn-primary mr-2" %>
+    <%= link_to 'Add DEV', add_developer_project_path(project), class: "btn btn-primary mr-2" %>
+     <%= link_to 'Add QA', add_qa_project_path(project), class: "btn btn-primary mr-2" %>
+     <%= link_to 'Remove DEV', new_user_registration_path(project), class: "btn btn-primary mr-2" %>
+     <%= link_to 'Remove QA', new_user_registration_path(project), class: "btn btn-primary mr-2" %>
       </td>
       </td>
     <% end %>
-  <% @projects.each do |project| %>
+
     <div class="card mb-4">
       <div class="card-body">
         <% if current_user.manager? %>
@@ -28,19 +31,19 @@
           <%= link_to 'Add Bug', new_bug_path(@project), class: "btn btn-success" %>
         <% end %>
 
-        <h3>Developers</h3>
-        <ul>
-        <% project.users.developer.each do |developer| %>
-          <li><%= developer.name %> (<%= link_to 'Remove', remove_developer_from_project_path(project, user_id: developer.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-danger" %>)</li>
-        <% end %>
-        </ul>
-
-        <h3>QAs</h3>
-        <ul>
-        <% project.users.qa.each do |qa| %>
-          <li><%= qa.name %> (<%= link_to 'Remove', remove_qa_from_project_path(project, user_id: qa.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-danger" %>)</li>
-        <% end %>
-        </ul>
+       <ul>
+      <% project.bugs.each do |bug| %>
+        <li>
+          <%= bug.title %>
+          <% if bug.developer.nil? %>
+            <%= link_to "Assign to Me", assign_bug_project_bug_path(project, bug), method: :patch %>
+          <% elsif bug.developer == current_user %>
+            <%= link_to "Pick Up", pick_up_bug_project_bug_path(project, bug), method: :patch %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+        
       </div>
     </div>
   <% end %>
