@@ -1,0 +1,12 @@
+
+<h1>QA Dashboard</h1>
+
+<h2>Projects</h2>
+<ul>
+  <% @projects.each do |project| %>
+    <li><%= project.name %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Report Bug', report_bug_qa_path %>
+<%= link_to 'Show Projects', show_projects_qa_path %>

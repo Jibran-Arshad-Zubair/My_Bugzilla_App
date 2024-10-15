@@ -31,3 +31,21 @@
 
 en:
   hello: "Hello world"
+en:
+  flash:
+    unauthorized: "You are not authorized to perform this action."
+
+en:
+  flash:
+    user:
+      created: "User was successfully created."
+      updated: "User was successfully updated."
+      deleted: "User was successfully deleted."
+    project:
+      created: "Project was successfully created."
+      updated: "Project was successfully updated."
+      deleted: "Project was successfully deleted."
+    bug:
+      created: "Bug was successfully created."
+      updated: "Bug was successfully updated."
+      deleted: "Bug was successfully deleted."

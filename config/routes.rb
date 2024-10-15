@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   end
   resources :projects 
 
+  resources :projects do
+   get 'delete', on: :member
+  end
+  
+
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',
@@ -23,15 +28,21 @@ Rails.application.routes.draw do
       post 'assign_to_myself'
       post 'pick_up'
       post 'mark_resolved'
+      get 'new'
+      post 'new'
     end
   end
+  
 
   resources :projects do
     member do
-      post 'add_developer/:user_id', action: :add_developer, as: :add_developer_to
-      delete 'remove_qa/:user_id', action: :remove_qa, as: :remove_qa_from
-      post 'add_developer'
+      patch 'add_developer'
+      get 'add_developer'
+      patch 'add_qa'
+      get 'add_qa'
+      get 'delete_developers'
+      delete 'delete_developers'
+      get 'remove_qa'
     end
   end
 end
-
