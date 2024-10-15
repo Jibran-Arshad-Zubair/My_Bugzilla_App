@@ -1,0 +1,32 @@
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Bug Index Page</h1>
+   <div class="text-center">
+    </div>
+  <% @bugs.each do |bug| %>
+    <div class="card mb-3">
+      <div class="card-body">
+     
+        <tr>
+          <td><%= bug.title %></td>
+          <td><%= bug.deadline %></td>
+          <td><%= bug.project.name %></td>
+        </tr>
+        <% if current_user.developer? && bug.project.users.include?(current_user) %>
+          <%= button_to 'Assign to Myself', assign_to_myself_bug_path(bug), method: :post, class: "btn btn-primary mr-2" %>
+          <%= button_to 'Pick Up', pick_up_bug_path(bug), method: :post, class: "btn btn-success mr-2" %>
+        <% end %>
+
+        <% if current_user.developer? && bug.developer == current_user %>
+          <%= button_to 'Mark Resolved', mark_resolved_bug_path(bug), method: :post, class: "btn btn-warning mr-2" %>
+        <% end %>
+
+        <% if current_user.manager? || (current_user.developer? && bug.developer == current_user) %>
+          <%= button_to 'Delete', bug_path(bug), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mr-2" %>
+        <% else %>
+          <p class="text-danger">You do not have permission to delete this bug.</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,23 @@
+<h2><%= @project.name %></h2>
+<p><strong>Manager:</strong> <%= @project.manager.name %></p>
+
+<h3>Developers</h3>
+<ul>
+  <% @project.users.developer.each do |developer| %>
+    <li><%= developer.name %> (<%= link_to 'Remove', remove_developer_from_project_path(@project, user_id: developer.id), method: :delete, data: { confirm: 'Are you sure?' } %>)</li>
+  <% end %>
+</ul>
+
+<h3>QAs</h3>
+<ul>
+  <% @project.users.qa.each do |qa| %>
+    <li><%= qa.name %> (<%= link_to 'Remove', remove_qa_from_project_path(@project, user_id: qa.id), method: :delete, data: { confirm: 'Are you sure?' } %>)</li>
+  <% end %>
+</ul>
+
+
+<% if current_user.manager? && current_user == @project.manager %>
+  <%= link_to 'Edit Project', edit_project_path(@project) %>
+  <%= link_to 'Delete Project', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
+
+<% end %>
